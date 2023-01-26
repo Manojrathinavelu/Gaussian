@@ -16,16 +16,35 @@ To write a program to find the solution of a matrix using Gaussian Elimination.
 ## Program:
 ```
 import numpy as np
-a=np.array([[-2,2,-3],[2,1,-6],[-1,-2,0]])
-values,vectors=np.linalg.eig(a)
-print("Eigen values are",values,"and Eigen Vectors are",vectors,)
-
+import sys
+n=int(input())
+a=np.zeros((n,n+1))
+x=np.zeros(n)
+for i in range(n):
+    for j in range(n+1):
+        a[i][j]=float(input())
+        
+for i in range(n):
+    for j in range(i+1,n):
+        ratio=a[j][i]/a[i][i]
+        
+        for k in range(n+1):
+            a[j][k]=a[j][k]-ratio*a[i][k]
+x[n-1]=a[n-1][n]/a[n-1][n-1]
+for i in range(n-2,-1,-1):
+    x[i]=a[i][n]
+    
+    for j in range(i+1,n):
+        x[i]=x[i]-a[i][j]*x[j]
+    x[i]=x[i]/a[i][i]
+    
+for i in range(n):
+    print('X%d = %0.2f'%(i,x[i]), end = ' ')
 ```
 
 ## Output:
 
-![eigen](https://user-images.githubusercontent.com/119560395/214837089-e1a5628c-a0a9-47f7-a4af-ffa1aa2d4324.png)
-
+![gaussian (2)](https://user-images.githubusercontent.com/119560395/214840569-cafe3b91-b2c3-49b7-92d1-fd86759ec1a8.png)
 
 ## Result:
 Thus the program to find the solution of a matrix using Gaussian Elimination is written and verified using python programming.
